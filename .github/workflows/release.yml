@@ -8,6 +8,10 @@ on:
   # 也支持手动触发
   workflow_dispatch:
 
+# 显式授予写权限,避免 Resource not accessible by integration
+permissions:
+  contents: write
+
 jobs:
   build-windows:
     runs-on: windows-latest
