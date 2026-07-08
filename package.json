@@ -2,12 +2,41 @@
   "name": "timeline-notes",
   "version": "1.0.0",
   "description": "时间轴便签 - 带提醒的桌面便签应用",
+  "main": "main.js",
+  "author": "wangkun",
   "scripts": {
-    "tauri": "tauri",
-    "dev": "tauri dev",
-    "build": "tauri build"
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder --win",
+    "build:mac": "electron-builder --mac"
   },
-  "dependencies": {
-    "@tauri-apps/cli": "^2"
+  "devDependencies": {
+    "electron": "^22.3.27",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.wangkun.timeline-notes",
+    "productName": "时间轴便签",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "src/**/*"
+    ],
+    "win": {
+      "icon": "src-tauri/icons/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["ia32", "x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false
+    }
   }
-  }
+}

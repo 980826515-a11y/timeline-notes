@@ -1,8 +1,19 @@
 # 📝 时间轴便签 (Timeline Notes)
 
-带提醒的桌面便签应用，到点高亮提醒，Tauri 打包成原生应用。
+带到期提醒的桌面便签应用。提供两种使用方式：
 
-## ✨ 功能特性
+| 版本 | 位置 | 适用场景 |
+|------|------|---------|
+| 🌐 **网页版** | [`html-version/`](html-version/) | 双击 HTML 即用，零安装 |
+| 🖥️ **桌面版** | 根目录（Tauri/Electron 打包） | 打包成 exe，给非技术用户 |
+
+## 网页版（推荐先试）
+
+进入 [`html-version/`](html-version/) 目录，双击 `index.html` 即可。
+
+详见 [html-version/README.md](html-version/README.md)。
+
+## 功能特性
 
 | 功能 | 说明 |
 |------|------|
@@ -16,73 +27,11 @@
 | 💾 本地持久化 | 数据存 localStorage，刷新不丢 |
 | ⌨️ 快捷键 | `Enter` 发布，`Shift + Enter` 换行 |
 
-## 🚀 快速开始
+## 桌面版打包
 
-### 开发模式
+桌面版打包说明见 [docs/RELEASE.md](docs/RELEASE.md)。
 
-```bash
-npm install
-npm run dev
-```
-
-### 打包发布
-
-详见 [docs/RELEASE.md](docs/RELEASE.md)。
-
-简而言之：
-1. `git tag v1.0.0 && git push origin v1.0.0`
-2. GitHub Actions 自动构建 Windows `.exe`
-3. 从 Releases 下载安装包
-
-## 📂 项目结构
-
-```
-timeline-notes/
-├── src/                    前端文件（应用本体）
-│   ├── index.html
-│   ├── css/style.css
-│   └── js/
-│       ├── store.js            数据层（localStorage CRUD）
-│       ├── timeline.js         时间轴渲染（按日期分组、逾期标记）
-│       ├── app.js              应用入口（事件绑定、交互）
-│       ├── emoji-data.js       emoji 表情库
-│       └── datetime-picker.js  自研滑轮时间选择器
-├── src-tauri/              Tauri 后端（Rust 壳）
-└── .github/workflows/      GitHub Actions（自动打 Windows exe）
-```
-
-## 🏗️ 架构
-
-```
-app.js  ──事件绑定、用户交互──┐
-                              │
-timeline.js ──DOM 渲染─────────┤── 数据流
-                              │
-store.js   ──localStorage──────┘
-```
-
-- **store.js**：唯一数据入口，封装 localStorage 读写
-- **timeline.js**：纯渲染层，按日期分组、逾期标记、滑轮选时间
-- **app.js**：协调层，绑定事件、调用 store、驱动渲染
-- **datetime-picker.js**：可复用的 iOS 式滑轮日期时间选择器
-
-## 📐 数据结构
-
-```js
-{
-  id: "时间戳+随机串",
-  content: "便签正文",
-  color: "#fff5cc",
-  createdAt: "2026-07-03T10:00:00.000Z",
-  updatedAt: "2026-07-03T10:00:00.000Z",
-  dueTime: "2026-07-10T15:30",        // 到期时间
-  status: "pending" | "done",          // 处理状态
-  statusUpdatedAt: "2026-07-07T..."    // 状态变更时间
-}
-```
-
-## 📦 技术栈
+## 技术栈
 
 - 前端：原生 HTML + CSS + JavaScript，零依赖
-- 桌面壳：Tauri 2（Rust）
-- 打包：GitHub Actions（云端构建 Windows exe）
+- 桌面壳：Tauri 2（Rust）/ Electron 22

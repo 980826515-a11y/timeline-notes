@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>时间轴便签</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- 顶部栏 -->
+    <header class="topbar">
+      <h1 class="logo">📝 时间轴便签</h1>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="搜索便签..." />
+      </div>
+      <div class="toolbar-actions">
+        <button type="button" class="tool-btn" id="exportBtn" title="导出全部便签为 JSON 文件">⬇️ 导出</button>
+        <button type="button" class="tool-btn" id="importBtn" title="从 JSON 文件导入便签">⬆️ 导入</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden />
+      </div>
+    </header>
+
+    <!-- 输入区 -->
+    <section class="composer">
+      <div class="input-row">
+        <textarea id="noteInput" placeholder="写点什么..." rows="2"></textarea>
+        <button type="button" class="emoji-trigger" id="emojiTrigger" title="插入表情">😊</button>
+      </div>
+      <div class="emoji-panel" id="emojiPanel" hidden></div>
+      <div class="composer-actions">
+        <div class="composer-options">
+          <label class="option-label">颜色</label>
+          <div class="color-picker" id="colorPicker">
+            <span class="color-dot active" data-color="#fff5cc" style="background:#fff5cc"></span>
+            <span class="color-dot" data-color="#ffd6e0" style="background:#ffd6e0"></span>
+            <span class="color-dot" data-color="#d4e9ff" style="background:#d4e9ff"></span>
+            <span class="color-dot" data-color="#d9f5d9" style="background:#d9f5d9"></span>
+            <span class="color-dot" data-color="#eee0f5" style="background:#eee0f5"></span>
+          </div>
+          <label class="option-label">到期</label>
+          <div class="due-time-display placeholder" id="dueTimeDisplay" title="点击选择到期时间">
+            <span class="due-display-icon">⏰</span>
+            <span class="due-display-text">选择时间</span>
+          </div>
+          <input type="hidden" id="dueTimeInput" />
+          <button type="button" class="due-clear-btn" id="dueClearBtn" title="清除到期时间" hidden>✕</button>
+        </div>
+        <button id="submitBtn" class="btn-primary">发布</button>
+      </div>
+    </section>
+
+    <!-- 操作栏 -->
+    <nav class="filters" id="filterBar">
+      <div class="filter-actions">
+        <button type="button" class="batch-entry" id="batchBtn" title="进入批量删除模式">🗑️ 批量删除</button>
+      </div>
+    </nav>
+
+    <!-- 批量操作栏（默认隐藏） -->
+    <div class="batch-bar" id="batchBar" hidden>
+      <label class="batch-check-all">
+        <input type="checkbox" id="checkAll" /> 全选
+      </label>
+      <span class="batch-count" id="batchCount">已选 0 条</span>
+      <div class="batch-spacer"></div>
+      <button type="button" class="btn-danger" id="batchDeleteBtn" disabled>🗑️ 删除选中</button>
+      <button type="button" class="tool-btn" id="batchDoneBtn">✕ 取消</button>
+    </div>
+
+    <!-- 时间轴容器 -->
+    <main class="timeline" id="timeline">
+      <!-- 由 timeline.js 动态渲染 -->
+    </main>
+
+    <!-- 拖拽框选选区（批量模式下显示） -->
+    <div class="selection-box" id="selectionBox"></div>
+
+    <!-- 空状态 -->
+    <div class="empty-state" id="emptyState" hidden>
+      <div class="empty-icon">🗒️</div>
+      <p>还没有便签，写第一条吧～</p>
+    </div>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/emoji-data.js"></script>
+  <script src="js/datetime-picker.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
