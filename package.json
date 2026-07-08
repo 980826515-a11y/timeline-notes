@@ -1,0 +1,13 @@
+{
+  "name": "timeline-notes",
+  "version": "1.0.0",
+  "description": "时间轴便签 - 带提醒的桌面便签应用",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build"
+  },
+  "dependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+  }
